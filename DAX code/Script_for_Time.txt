@@ -1,0 +1,15 @@
+﻿DAX Time =
+VAR _series =
+    GENERATESERIES ( 1, 1440, 1 )
+VAR _time =
+    ADDCOLUMNS ( _series, "TimeandDay", TIME ( 0, [value], 0 ) )
+RETURN
+    ADDCOLUMNS (
+        _time,
+        "TimeKey", FORMAT ( [TimeandDay], "hhmm" ),
+        "Actual Time", FORMAT ( [TimeandDay], "HH:MM AM/PM" ),
+        "Hour", HOUR ( [TimeandDay] ),
+        "Hour Extended", FORMAT ( [TimeandDay], "H AM/PM" ),
+        "Minute", MINUTE ( [TimeandDay] ),
+        "AMPM", FORMAT ( [TimeandDay], "AM/PM" )
+    )
